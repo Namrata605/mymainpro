@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <title>Barbers,Dentists,Gyms,parks &amp; others</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="{% static 'https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
+
+    <link rel="stylesheet" href="{% static 'fonts/flaticon/font/flaticon.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/rangeslider.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+  </head>
+  <body>
+  
+  <div class="site-wrap">
+
+    <div class="site-mobile-menu">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+    
+    <header class="site-navbar container py-0 " role="banner">
+
+      <!-- <div class="container"> -->
+        <div class="row align-items-center">
+          
+          <div class="col-6 col-xl-2">
+            <h1 class="mb-0 site-logo"><a href="{% url 'index' %}" class="text-white mb-0">Help_24</a></h1>
+          </div>
+          <div class="col-12 col-md-10 d-none d-xl-block">
+            <nav class="site-navigation position-relative text-right" role="navigation">
+
+              <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
+                <li class="active"><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'listings' %}">Services</a></li>
+                <li>
+                  <a href="{% url 'index' %}">About</a>
+                  <!-- <ul class="dropdown">
+                    <li><a href="#">The Company</a></li>
+                    <li><a href="#">The Leadership</a></li>
+                    <li><a href="#">Philosophy</a></li>
+                    <li><a href="#">Careers</a></li>
+                  </ul> -->
+                </li>
+                <!-- <li><a href="{% url 'blog' %}">Blog</a></li> -->
+                <!-- <li class="mr-5"><a href="{% url 'contact' %}">Contact</a></li> -->
+                <li class="mr-5"><a href="{% url 'donor' %}">Donate Blood</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'login' %}" class="btn btn-outline-light top-btn"><span class="ti-plus"></span>+ Add listing</a></li>
+                <li class="active has-children" style="color:wheat;"><span class="border-left pl-xl-4"></span>Hello, {{user}}
+                  <ul class="dropdown">
+                    <li><a href="{% url 'update-profile' %}">Update Profile</a></li>
+                  </ul>
+                </li>
+                <li class="ml-xl-3 "><a href="{% url 'logout' %}">LogOut</a></li>
+                {% else %}
+
+                <li class="ml-xl-3 login"><a href="{% url 'login' %}"><span class="border-left pl-xl-4"></span>Log In</a></li>
+
+                <li><a href="{% url 'register' %}" class="cta"><span class="bg-primary text-white rounded">Register</span></a></li>
+                {% endif %}
+              </ul>
+            </nav>
+          </div>
+
+
+          <div class="d-inline-block d-xl-none ml-auto py-3 col-6 text-right" style="position: relative; top: 3px;">
+            <a href="#" class="site-menu-toggle js-menu-toggle text-white"><span class="icon-menu h3"></span></a>
+          </div>
+
+        </div>
+      <!-- </div> -->
+      
+    </header>
+
+  
+    <div class="site-blocks-cover inner-page-cover overlay" style="background-image: url({% static 'images/hero_2.jpg' %})" data-aos="fade" data-stellar-background-ratio="0.5">
+      <div class="container">
+        <div class="row align-items-center justify-content-center text-center">
+
+          <div class="col-md-10" data-aos="fade-up" data-aos-delay="400">
+            
+            
+            <div class="row justify-content-center mt-5">
+              <div class="col-md-8 text-center">
+                <h1>Business in City</h1>
+                <p class="mb-0">Choose Services you Want</p>
+              </div>
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>  
+
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8">
+            {%for business in business1 %}
+            <div class="card mb-3" style="max-width: 600px; height:200px;">
+              <div class="row no-gutters">
+                <div class="col-md-4">
+                  <img src="{{business.image.url}}" class="card-img" alt="..." style="width:100%; height:100%; object-fit:cover;">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <span class="category" style="border:2px solid white;background-color:pink;border-radius:10px;padding:5px;">{{business.category}}</span><br>
+                    <br>
+                    <a href={% url 'detail' pk=business.pk %}><h5 class="card-title">{{business.business_name}}</h5></a>
+                    <p class="card-text">{{business.address}}</p>
+                    <p class="card-text"><span style="font-weight:bold;">Contact</span>:+91 {{business.phone}}</p>
+                    <!-- <p class="card-text"><span style="font-weight:bold;">Email</span>: {{business.email}}</p>
+
+                    <p class="card-text">{{business.Description}}</p> -->
+                    <!-- Visit<a href="{{business.website}}" style="text-decoration: none;"><span style="color:green;"> {{business.website}}</span></a> for more options.<br>
+                    
+                    
+                      <a href="#" style="margin-top:22px;" class="btn btn-primary">More Info</a> -->
+                    
+                    <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% empty %}
+									<h2><span class="adprice">We Don't Find any matching result of your search.</span></h2>
+            {% endfor %}
+            
+
+
+
+
+
+
+            
+            <!-- <div class="row">
+              <div class="col-lg-6">
+                
+                <div class="d-block d-md-flex listing vertical">
+                  <a href="#" class="img d-block" style="background-image: url({% static 'images/img_1.jpg' %})"></a>
+                  <div class="lh-content">
+                    <span class="category">Cars &amp; Vehicles</span>
+                    <a href="#" class="bookmark"><span class="icon-heart"></span></a>
+                    <h3><a href="#">Red Luxury Car</a></h3>
+                    <address>Don St, Brooklyn, New York</address>
+                    <p class="mb-0">
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-secondary"></span>
+                      <span class="review">(3 Reviews)</span>
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-lg-6">
+
+                <div class="d-block d-md-flex listing vertical">
+                  <a href="#" class="img d-block" style="background-image: url({% static 'images/img_2.jpg' %})"></a>
+                  <div class="lh-content">
+                    <span class="category">Real Estate</span>
+                    <a href="#" class="bookmark"><span class="icon-heart"></span></a>
+                    <h3><a href="#">House with Swimming Pool</a></h3>
+                    <address>Don St, Brooklyn, New York</address>
+                    <p class="mb-0">
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-secondary"></span>
+                      <span class="review">(3 Reviews)</span>
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="col-lg-6">
+                
+                <div class="d-block d-md-flex listing vertical">
+                  <a href="#" class="img d-block" style="background-image: url({% static 'images/img_3.jpg' %})"></a>
+                  <div class="lh-content">
+                    <span class="category">Furniture</span>
+                    <a href="#" class="bookmark"><span class="icon-heart"></span></a>
+                    <h3><a href="#">Wooden Chair &amp; Table</a></h3>
+                    <address>Don St, Brooklyn, New York</address>
+                    <p class="mb-0">
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-secondary"></span>
+                      <span class="review">(3 Reviews)</span>
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-lg-6">
+
+                <div class="d-block d-md-flex listing vertical">
+                  <a href="#" class="img d-block" style="background-image: url({% static 'images/img_4.jpg' %})"></a>
+                  <div class="lh-content">
+                    <span class="category">Electronics</span>
+                    <a href="#" class="bookmark"><span class="icon-heart"></span></a>
+                    <h3><a href="#">iPhone X gray</a></h3>
+                    <address>Don St, Brooklyn, New York</address>
+                    <p class="mb-0">
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-secondary"></span>
+                      <span class="review">(3 Reviews)</span>
+                    </p>
+                  </div>
+                </div>
+                
+              </div>
+
+
+              <div class="col-lg-6">
+                
+                <div class="d-block d-md-flex listing vertical">
+                  <a href="#" class="img d-block" style="background-image: url({% static 'images/img_2.jpg' %})"></a>
+                  <div class="lh-content">
+                    <span class="category">Real Estate</span>
+                    <a href="#" class="bookmark"><span class="icon-heart"></span></a>
+                    <h3><a href="#">House with Swimming Pool</a></h3>
+                    <address>Don St, Brooklyn, New York</address>
+                    <p class="mb-0">
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-secondary"></span>
+                      <span class="review">(3 Reviews)</span>
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-lg-6">
+
+                <div class="d-block d-md-flex listing vertical">
+                  <a href="#" class="img d-block" style="background-image: url({% static 'images/img_3.jpg' %})"></a>
+                  <div class="lh-content">
+                    <span class="category">Furniture</span>
+                    <a href="#" class="bookmark"><span class="icon-heart"></span></a>
+                    <h3><a href="#">Wooden Chair &amp; Table</a></h3>
+                    <address>Don St, Brooklyn, New York</address>
+                    <p class="mb-0">
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-secondary"></span>
+                      <span class="review">(3 Reviews)</span>
+                    </p>
+                  </div>
+                </div>
+                
+              </div>
+
+
+              <div class="col-lg-6">
+                
+                <div class="d-block d-md-flex listing vertical">
+                  <a href="#" class="img d-block" style="background-image: url({% static 'images/img_1.jpg' %})"></a>
+                  <div class="lh-content">
+                    <span class="category">Cars &amp; Vehicles</span>
+                    <a href="#" class="bookmark"><span class="icon-heart"></span></a>
+                    <h3><a href="#">Red Luxury Car</a></h3>
+                    <address>Don St, Brooklyn, New York</address>
+                    <p class="mb-0">
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-secondary"></span>
+                      <span class="review">(3 Reviews)</span>
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-lg-6">
+
+                <div class="d-block d-md-flex listing vertical">
+                  <a href="#" class="img d-block" style="background-image: url({% static 'images/img_2.jpg' %})"></a>
+                  <div class="lh-content">
+                    <span class="category">Real Estate</span>
+                    <a href="#" class="bookmark"><span class="icon-heart"></span></a>
+                    <h3><a href="#">House with Swimming Pool</a></h3>
+                    <address>Don St, Brooklyn, New York</address>
+                    <p class="mb-0">
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-secondary"></span>
+                      <span class="review">(3 Reviews)</span>
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="col-lg-6">
+                
+                <div class="d-block d-md-flex listing vertical">
+                  <a href="#" class="img d-block" style="background-image: url({% static 'images/img_3.jpg' %})"></a>
+                  <div class="lh-content">
+                    <span class="category">Furniture</span>
+                    <a href="#" class="bookmark"><span class="icon-heart"></span></a>
+                    <h3><a href="#">Wooden Chair &amp; Table</a></h3>
+                    <address>Don St, Brooklyn, New York</address>
+                    <p class="mb-0">
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-secondary"></span>
+                      <span class="review">(3 Reviews)</span>
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-lg-6">
+
+                <div class="d-block d-md-flex listing vertical">
+                  <a href="#" class="img d-block" style="background-image: url({% static 'images/img_4.jpg' %})"></a>
+                  <div class="lh-content">
+                    <span class="category">Electronics</span>
+                    <a href="#" class="bookmark"><span class="icon-heart"></span></a>
+                    <h3><a href="#">iPhone X gray</a></h3>
+                    <address>Don St, Brooklyn, New York</address>
+                    <p class="mb-0">
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-warning"></span>
+                      <span class="icon-star text-secondary"></span>
+                      <span class="review">(3 Reviews)</span>
+                    </p>
+                  </div>
+                </div>
+                
+              </div> -->
+
+
+              
+
+            <!-- </div> -->
+
+            <div class="col-12 mt-5 text-center">
+              {% if business1.has_other_pages %}
+                <div class="custom-pagination">
+                  {% if business1.has_previous %}
+                    <a href="?page={{ business1.previous_page_number }}">&laquo;</a>
+                  {% else %}
+                    <a class="disabled"><span>&laquo;</span></a>
+                  {% endif %}
+                  {% for i in business1.paginator.page_range %}
+                    {% if business1.number == i %}
+                      <a class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></a>
+                    {% else %}
+                      <a href="?page={{ i }}">{{ i }}</a>
+                    {% endif %}
+                  {% endfor %}
+                  {% if business1.has_next %}
+                    <a href="?page={{ business1.next_page_number }}">&raquo;</a>
+                  {% else %}
+                    <a class="disabled"><span>&raquo;</span></a>
+                  {% endif %}   
+                </div>
+              {% endif %}
+
+
+
+              
+              <!-- {% if business1.has_other_pages %}
+              <div class="custom-pagination">
+                {% if business1.has_previous %}
+                <span>1</span>
+                <a href="?page={{ users.previous_page_number }}">Prev</a>
+                {% endif %}
+                <a href="#">3</a>
+
+                {% for pages in business1.paginator.page_range %}
+                
+                <a href="?page={{pages}}">{{pages}}</a>
+                {% endfor %}
+                {% if business1.has_next %}
+                <a href="?page={{business1.next_page_number }}">Next</a>
+                {% endif %}
+						  {% endif %}
+                <span class="more-page">...</span>
+                <a href="#">10</a>
+              </div> -->
+            </div>
+
+          </div>
+          <div class="col-lg-3 ml-auto">
+
+            <div class="mb-5">
+              <h3 class="h5 text-black mb-3">Filters</h3>
+              <form action="{% url 'filtering' %}" method="GET">
+                <div class="form-group">
+                  <input type="text" name="search" placeholder="What are you looking for?" class="form-control">
+                </div>
+                <div class="form-group">
+                  <div class="select-wrap">
+                      <span class="icon"><span class="icon-keyboard_arrow_down"></span></span>
+                      <select class="form-control" name="search" id="">
+                        <option value="">All Categories</option>
+                        <option value="" selected="">Plumbers</option>
+                        <option value="">Gyms</option>
+                        <option value="">Carpenter</option>
+                        <option value="">Electricians</option>
+                        <option value="">Movers</option>
+                        <option value="">Saloons &amp; Parlour</option>
+                        <option value="">Automobile</option>
+                        <option value="">Bakery</option>
+                        <option value="">Restaurants</option>
+                        <option value="">Grocery</option>
+                        <option value="">Cooks &amp; Maid</option>
+                        <option value="">Chemists</option>
+                        <option value="">Caterers</option>
+                        <option value="">Civil Contractors</option>
+                        <option value="">Doctors</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                  <!-- select-wrap, .wrap-icon -->
+                  <!-- <div class="wrap-icon">
+                    <span class="icon icon-room"></span>
+                    <input type="text" placeholder="Location" class="form-control">
+                  </div> -->
+                  <div class="col-md-12">
+                    <input type="submit" value="Submit" class="btn btn-primary py-2 px-4 text-white">
+                  </div>
+                </div>
+              </form>
+            </div>
+            
+            <!-- <div class="mb-5">
+              <form action="#" method="post">
+                <div class="form-group">
+                  <p>Business around selected destination</p>
+                </div>
+                <div class="form-group">
+                  <input type="range" min="1" max="100" value="20" data-rangeslider>
+                </div>
+              </form>
+            </div> -->
+
+            <!-- <div class="mb-5">
+              <form action="{% url 'listings' %}" method="GET">
+                <div class="form-group">
+                  <!-- <p>Category 'Real Estate' is selected</p> -->
+                  <!-- <p>More filters</p>
+                </div>
+                <div class="form-group">
+                  <ul class="list-unstyled">
+                    <li>
+                      <label for="option1">
+                        <input type="checkbox" class="option1" name='search' onclick="onlyOne(this)">
+                        Sector1 - Sector15
+                      </label>
+                    </li>
+                    <li>
+                      <label for="option1">
+                        <input type="checkbox" class="option1" name='search' onclick="onlyOne(this)">
+                        Sector16 - Sector30
+                      </label>
+                    </li>
+                    <li>
+                      <label for="option1">
+                        <input type="checkbox" class="option1" name='search' onclick="onlyOne(this)">
+                        Sector31 - Sector45
+                      </label>
+                    </li>
+                    <li>
+                      <label for="option1">
+                        <input type="checkbox" class="option1" name='search' onclick="onlyOne(this)">
+                        Sector46 - Sector60
+                      </label>
+                    </li>
+                  </ul>
+
+                </div>
+                <div class="col-md-12">
+                  <input type="submit" value="Submit" class="btn btn-primary py-2 px-4 text-white">
+                </div>
+              </form>
+            </div> --> 
+
+            <div class="mb-5">
+              <h3 class="h6 mb-3">More Info</h3>
+              <p>Help_24 connects people with great local businesses. With unmatched local business information,photos and contact.</p>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section bg-light">
+      <div class="container">
+        
+        <div class="row mb-5">
+          <div class="col-md-7 text-left border-primary">
+            <h2 class="font-weight-light text-primary">New Business</h2>
+          </div>
+        </div>
+        
+        <div class="row mt-5">
+          {% for business in business2 %}
+          <div class="col-lg-6">
+            
+            <div class="d-block d-md-flex listing">
+              <a href={% url 'detail' pk=business.pk %} class="img d-block" style="background-image: url({{business.image.url}})"></a>
+              <div class="lh-content">
+                <span class="category">{{business.category}}</span>
+                <a href={% url 'detail' pk=business.pk %} class="bookmark"><span class="icon-heart"></span></a>
+                <h3><a href={% url 'detail' pk=business.pk %}>{{business.business_name}}</a></h3>
+                <address>{{business.address}}</address>
+                <h3><span style="font-weight:bolder;">Contact</span> : {{business.phone}}</h3>
+                <!-- <p class="mb-0">
+                  <span class="icon-star text-warning"></span>
+                  <span class="icon-star text-warning"></span>
+                  <span class="icon-star text-warning"></span>
+                  <span class="icon-star text-warning"></span>
+                  <span class="icon-star text-secondary"></span>
+                  <span class="review">(3 Reviews)</span>
+                </p> -->
+              </div>
+            </div>
+            
+          </div>
+          {% endfor  %}
+        </div>
+        
+      </div>
+    </div>
+            <!-- <div class="d-block d-md-flex listing">
+                <a href="#" class="img d-block" style="background-image: url({% static 'images/img_3.jpg' %})"></a>
+                <div class="lh-content">
+                  <span class="category">Furniture</span>
+                  <a href="#" class="bookmark"><span class="icon-heart"></span></a>
+                  <h3><a href="#">Wooden Chair &amp; Table</a></h3>
+                  <address>Don St, Brooklyn, New York</address>
+                  <p class="mb-0">
+                    <span class="icon-star text-warning"></span>
+                    <span class="icon-star text-warning"></span>
+                    <span class="icon-star text-warning"></span>
+                    <span class="icon-star text-warning"></span>
+                    <span class="icon-star text-secondary"></span>
+                    <span class="review">(3 Reviews)</span>
+                  </p>
+                </div>
+              </div>
+
+              <div class="d-block d-md-flex listing">
+                <a href="#" class="img d-block" style="background-image: url({% static 'images/img_4.jpg' %})"></a>
+                <div class="lh-content">
+                  <span class="category">Electronics</span>
+                  <a href="#" class="bookmark"><span class="icon-heart"></span></a>
+                  <h3><a href="#">iPhone X gray</a></h3>
+                  <address>Don St, Brooklyn, New York</address>
+                  <p class="mb-0">
+                    <span class="icon-star text-warning"></span>
+                    <span class="icon-star text-warning"></span>
+                    <span class="icon-star text-warning"></span>
+                    <span class="icon-star text-warning"></span>
+                    <span class="icon-star text-secondary"></span>
+                    <span class="review">(3 Reviews)</span>
+                  </p>
+                </div>
+              </div>
+
+             
+
+          </div>
+          <div class="col-lg-6">
+
+            <div class="d-block d-md-flex listing">
+              <a href="#" class="img d-block" style="background-image: url({% static 'images/img_1.jpg' %})"></a>
+              <div class="lh-content">
+                <span class="category">Cars &amp; Vehicles</span>
+                <a href="#" class="bookmark"><span class="icon-heart"></span></a>
+                <h3><a href="#">Red Luxury Car</a></h3>
+                <address>Don St, Brooklyn, New York</address>
+                <p class="mb-0">
+                  <span class="icon-star text-warning"></span>
+                  <span class="icon-star text-warning"></span>
+                  <span class="icon-star text-warning"></span>
+                  <span class="icon-star text-warning"></span>
+                  <span class="icon-star text-secondary"></span>
+                  <span class="review">(3 Reviews)</span>
+                </p>
+              </div>
+            </div>
+
+            <div class="d-block d-md-flex listing">
+              <a href="#" class="img d-block" style="background-image: url({% static 'images/img_2.jpg' %})"></a>
+              <div class="lh-content">
+                <span class="category">Real Estate</span>
+                <a href="#" class="bookmark"><span class="icon-heart"></span></a>
+                <h3><a href="#">House with Swimming Pool</a></h3>
+                <address>Don St, Brooklyn, New York</address>
+                <p class="mb-0">
+                  <span class="icon-star text-warning"></span>
+                  <span class="icon-star text-warning"></span>
+                  <span class="icon-star text-warning"></span>
+                  <span class="icon-star text-warning"></span>
+                  <span class="icon-star text-secondary"></span>
+                  <span class="review">(3 Reviews)</span>
+                </p>
+              </div>
+            </div>
+            <div class="d-block d-md-flex listing">
+                <a href="#" class="img d-block" style="background-image: url({% static 'images/img_3.jpg' %})"></a>
+                <div class="lh-content">
+                  <span class="category">Furniture</span>
+                  <a href="#" class="bookmark"><span class="icon-heart"></span></a>
+                  <h3><a href="#">Wooden Chair &amp; Table</a></h3>
+                  <address>Don St, Brooklyn, New York</address>
+                  <p class="mb-0">
+                    <span class="icon-star text-warning"></span>
+                    <span class="icon-star text-warning"></span>
+                    <span class="icon-star text-warning"></span>
+                    <span class="icon-star text-warning"></span>
+                    <span class="icon-star text-secondary"></span>
+                    <span class="review">(3 Reviews)</span>
+                  </p>
+                </div>
+              </div>
+
+          </div>
+        </div>
+      </div>
+    </div> -->
+    
+    <div class="site-section bg-white">
+      <div class="container">
+
+        <div class="row justify-content-center mb-5">
+          <div class="col-md-7 text-center border-primary">
+            <h2 class="font-weight-light text-primary">Testimonials</h2>
+          </div>
+        </div>
+
+        <div class="slide-one-item home-slider owl-carousel">
+          <div>
+            <div class="testimonial">
+              <figure class="mb-4">
+                <img src="{% static 'images/person_3.jpg' %}" alt="Image" class="img-fluid mb-3">
+                <p></p>
+              </figure>
+              <blockquote>
+                <p>&ldquo;Snappy Reaction time &amp; works till the  activity is finished. &rdquo;</p>
+              </blockquote>
+            </div>
+          </div>
+          <div>
+            <div class="testimonial">
+              <figure class="mb-4">
+                <img src="{% static 'images/person_2.jpg' %}" alt="Image" class="img-fluid mb-3">
+                <p></p>
+              </figure>
+              <blockquote>
+                <p>&ldquo;Home support has done once it more, considered today no warmth, made them pass by 12:45. can't beat the individuals, work or the cost.&rdquo;</p>
+              </blockquote>
+            </div>
+          </div>
+
+          <div>
+            <div class="testimonial">
+              <figure class="mb-4">
+                <img src="{% static 'images/person_4.jpg' %}" alt="Image" class="img-fluid mb-3">
+                <p></p>
+              </figure>
+              <blockquote>
+                <p>&ldquo;Fast,inviting &amp; reasonable Services. I certainly prescribe him to everybody for them&rdquo;</p>
+              </blockquote>
+            </div>
+          </div>
+
+          <div>
+            <div class="testimonial">
+              <figure class="mb-4">
+                <img src="{% static 'images/person_5.jpg' %}" alt="Image" class="img-fluid mb-3">
+                <p></p>
+              </figure>
+              <blockquote>
+                <p>&ldquo;Our greatest glory is not in never failing, but in rising up every time we fail. – Ralph Waldo Emerson&rdquo;</p>
+              </blockquote>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- <div class="newsletter bg-primary py-5">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <h2>Newsletter</h2>
+            <p>Get instant access to reliable and affordable services.</p>
+          </div>
+          <div class="col-md-6">
+            
+            <form class="d-flex">
+              <input type="text" class="form-control" placeholder="Email">
+              <input type="submit" value="Subscribe" class="btn btn-white"> 
+            </form>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    
+    <footer class="site-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-9">
+            <div class="row">
+              <div class="col-md-6">
+                <h2 class="footer-heading mb-4">About</h2>
+                <p>Help_24 connects people with great local businesses. With unmatched local business information,photos and contact.</p>
+              </div>
+              
+              <div class="col-md-3">
+                <h2 class="footer-heading mb-4">Navigations</h2>
+                <ul class="list-unstyled">
+                  <li><a href="{% url 'about' %}">About Us</a></li>
+                  <li><a href="{% url 'listings' %}">Services</a></li>
+                  <!-- <li><a href="#">Testimonials</a></li> -->
+                  <!-- <li><a href="{% url 'blog' %}">Blog</a></li> -->
+                  <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                </ul>
+              </div>
+              <div class="col-md-3">
+                <h2 class="footer-heading mb-4">Follow Us</h2>
+                <a href="#" class="pl-0 pr-3"><span class="icon-facebook"></span></a>
+                <a href="#" class="pl-3 pr-3"><span class="icon-twitter"></span></a>
+                <a href="#" class="pl-3 pr-3"><span class="icon-instagram"></span></a>
+                <a href="#" class="pl-3 pr-3"><span class="icon-linkedin"></span></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <form action="{% url 'listings' %}" method="GET">
+              <div class="input-group mb-3">
+                <input type="text" name='search' class="form-control border-secondary text-white bg-transparent" placeholder="Search products..." aria-label="Enter Email" aria-describedby="button-addon2">
+                <div class="input-group-append">
+                  <!-- <button class="btn btn-primary text-white" type="button" id="button-addon2">Search</button> -->
+                  <input type="submit" class="btn btn-primary btn-block rounded" value="Search">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row pt-5 mt-5 text-center">
+          <div class="col-md-12">
+            <div class="border-top pt-5">
+            <p>
+           
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved 
+            
+            </p>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script type="text/javascript">
+   	    function onlyOne(checkbox) {
+    var checkboxes = document.getElementsByName('search')
+    checkboxes.forEach((item) => {
+        if (item !== checkbox) item.checked = false
+    })
+}
+    </script>
+  <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+  <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
+  <script src="{% static 'js/jquery-ui.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+  <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+  <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
+  <script src="{% static 'js/aos.js' %}"></script>
+  <script src="{% static 'js/rangeslider.min.js' %}"></script>
+
+  <script src="{% static 'js/main.js' %}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+  </body>
+</html>

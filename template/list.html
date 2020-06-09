@@ -1,0 +1,257 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
+
+    <!-- <link rel="stylesheet" href="{% static 'fonts/flaticon/font/flaticon.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'fonts/flaticon8/font/flaticon.css' %}"> 
+    <!-- <link rel="stylesheet" href="{% static 'fonts/flaticon8/font2/flaticon.css' %}"> -->
+
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/rangeslider.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'fonts/flaticon4/font/flaticon.css' %}">
+    <title>Add Business </title>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: red;">
+        <a href="{% url 'index' %}" class="navbar-brand"><strong>Help_24</strong>
+            <span class="icon"><span class=""></span></span>
+            
+        </a>
+        <!-- <span class="icon"><span class="flaticon-yelp"></span></span> -->
+        <h3 style="color: white;">     <strong>for business owners</strong></h3>
+        <ul class="navbar-nav ml-auto">
+          {% if user.is_authenticated %}
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" style="color:bisque;font-size:20px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="border-left pl-xl-4"></span><strong>Hello, {{user}}</strong>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'update-profile' %}">Update Profile</a>
+                </div>
+            </li>
+            <li class="nav-item"><a href="{% url 'register' %}" class="nav-link" style="color:bisque;font-size:20px;"><strong>LogOut</a></strong></li>
+          {% else %}
+          <li class="nav-item"><a href="{% url 'login' %}" class="nav-link" style="color:bisque;"><strong>Login<</strong></a></li>
+          <li class="nav-item"><a href="{% url 'register' %}" class="nav-link" style="color:bisque;"><strong>Register</a></strong></li>
+          {% endif %}
+        </ul>
+      </nav>
+      
+     
+        <div class="container" style="margin-top: 20px;">
+          <div class="row justify-content-center">
+            <div class="col-md-7 mb-5"  data-aos="fade">
+  
+              <h2 class="mb-5 text-black" style="text-align: center";>Add your Business details</h2>
+  
+              <form action="list"  method="post" class="p-5 bg-white">
+                {% csrf_token %}
+               
+                <div class="row form-group">
+                  
+                  <div class="col-md-12">
+                    <label class="text-black" for="pin">Pincode</label> 
+                    <input type="location" name="pincode" id="pin" class="form-control" maxlength="6" placeholder="143401" required pattern="[0-9]+">
+                  </div>
+                </div>
+  
+                <div class="row form-group">
+                  
+                  <div class="col-md-12">
+                    <label class="text-black" for="name">Business Name</label> 
+                    <input type="text" name="businessname" id="name" class="form-control" required> 
+                  </div>
+                </div>
+  
+  
+                <div class="row form-group">
+                  <div class="col-md-12">
+                    <label class="text-black" for="subject">Categories</label> 
+                    <!-- <input type="categories" name="category" id="subject" class="form-control" placeholder="plumbing.." required> -->
+                    <div class="select-wrap">
+                      <span class="icon"><span class="icon-keyboard_arrow_down"></span></span>
+                      <select class="form-control" name="category" id="subject">
+                        {% for c in cat %}
+                        <option value="{{c.name}}">{{c.name}}</option>
+                        {% endfor %}
+                        <!-- <option value="" selected="">Plumbers</option>
+                        <option value="">Gyms </option>
+                        <option value="">Carpenter</option>
+                        <option value="">Electrician</option>
+                        <option value="">Movers</option>
+                        <option value="">Wall Painters</option>
+                        <option value="">Doctors</option>
+                        <option value="">Saloons &amp; Parlour</option>
+                        <option value="">Mobiles</option>
+                        <option value="">Chemists</option>
+                        <option value="">Caterers</option>
+                        <option value="">Civil Contractors</option>
+                        <option value="">Repairs</option>
+                        <option value="">Automobile</option>
+                        <option value="">Bakery</option>
+                        <option value="">Restaurants</option>
+                        <option value="">Grocery</option>
+                        <option value="">Cooks &amp; Maid</optio<n> -->
+                      </select>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="row form-group">
+                  <div class="col-md-12">
+                    <label class="text-black" for="subject">Business Phone</label> 
+                    <input type="phone" name="phone" id="subject" class="form-control" placeholder="9999999988" maxlength="10" pattern="[0-9]+" required>
+                  </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-12">
+                      <label class="text-black" for="subject">Address</label> 
+                      <input type="text" name="address" id="subject" class="form-control" placeholder="123 street main road.." required>
+                    </div>
+                  </div>
+
+                  <div class="row form-group">
+                    <div class="col-md-12">
+                      <label class="text-black" for="subject">Landmark</label> 
+                      <input type="text" name="landmark" id="subject" class="form-control" placeholder="Near landmark" required>
+                    </div>
+                  </div>
+
+                  <div class="row form-group">
+                    <div class="col-md-12">
+                      <label class="text-black" for="subject">Web Address</label> 
+                      <input type="url" name="webaddress" id="subject" class="form-control" placeholder="https://www.yourbusinessaddress.com">
+                    </div>
+                  </div>
+
+                  <div class="row form-group">
+                    <div class="col-md-12">
+                      <label class="text-black" for="subject">Email</label> 
+                      <input type="email" name="email" id="subject" class="form-control" placeholder="name@yourservices.com"   ​pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="enter valid email">
+                    </div>
+                  </div>
+
+                  <div class="row form-group">
+                    <div class="col-md-12">
+                      <label class="text-black" for="img">Select Image for Business</label> 
+                      <input type="file" name="image" id="img" class="form-control"  accept="image/*">
+                    </div>
+                  </div>
+
+                  <div class="row form-group">
+                    <div class="col-md-12">
+                      <label class="text-black" for="description">Add Description</label> 
+                      <textarea name="description" id="message" cols="25" rows="4" class="form-control" placeholder="Add your Business Description here..."></textarea>
+                    </div>
+                  </div>
+
+                  <div class="row form-group">
+                    <div class="col-md-12">
+                      <input type="submit" value="Add Business" class="btn btn-primary py-2 px-4 text-white">
+                    </div>
+                  </div>
+                  </form>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+
+                  <footer class="site-footer">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-9">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <h2 class="footer-heading mb-4">About</h2>
+                              <p>Help_24 connects people with great local businesses. With unmatched local business information,photos and contact.</p>
+                            </div>
+                            
+                            <div class="col-md-3">
+                              <h2 class="footer-heading mb-4">Navigations</h2>
+                              <ul class="list-unstyled">
+                                <li><a href="{% url 'about' %}">About Us</a></li>
+                                <li><a href="{% url 'listings' %}">Services</a></li>
+                                <!-- <li><a href="{% url 'blog' %}">Blog</a></li> -->
+                                <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                              </ul>
+                            </div>
+                            <div class="col-md-3">
+                              <h2 class="footer-heading mb-4">Follow Us</h2>
+                              <a href="#" class="pl-0 pr-3"><span class="icon-facebook"></span></a>
+                              <a href="#" class="pl-3 pr-3"><span class="icon-twitter"></span></a>
+                              <a href="#" class="pl-3 pr-3"><span class="icon-instagram"></span></a>
+                              <a href="#" class="pl-3 pr-3"><span class="icon-linkedin"></span></a>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <form action="{% url 'listings' %}" method="GET">
+                            <div class="input-group mb-3">
+                              <input type="text" name='search' class="form-control border-secondary text-white bg-transparent" placeholder="Search products..." aria-label="Enter Email" aria-describedby="button-addon2">
+                              <div class="input-group-append">
+                                <!-- <button class="btn btn-primary text-white" type="button" id="button-addon2">Search</button> -->
+                                <input type="submit" class="btn btn-primary btn-block rounded" value="Search">
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                      <div class="row pt-5 mt-5 text-center"> 
+                        <div class="col-md-12">
+                          <div class="border-top pt-5">
+                          <p>
+                          
+                          Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved 
+                          
+                          </p>
+                          </div>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </footer>
+
+
+  <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+  <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
+  <script src="{% static 'js/jquery-ui.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+  <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+  <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
+  <script src="{% static 'js/aos.js' %}"></script>
+  <script src="{% static 'js/rangeslider.min.js' %}"></script>
+
+  <script src="{% static 'js/main.js' %}"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
